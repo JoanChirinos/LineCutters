@@ -4,12 +4,10 @@
   L02 -- All Hands on Deque
 */
 
-import java.util.LinkedList;
-
 public class QQKachoo<D> implements Deque<D>
 {
   private int _size;
-  private LinkedList<D> _front, _back;
+  private LinkedList<D> _front;
 
   public QQKachoo() {
     _size = 0;
@@ -25,7 +23,7 @@ public class QQKachoo<D> implements Deque<D>
   }
 
   public boolean offerFirst(D newEl) {
-    //<insert implementation>
+
   }
 
   public static void main(String[] args) {
