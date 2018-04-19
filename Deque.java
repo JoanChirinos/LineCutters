@@ -4,8 +4,7 @@ APCS2 pd08
 L02 -- All Hands on Deque
 */
 
-public interface Deque<Card>
-{
+public interface Deque<Card> implements Iterable<Card> {
   //stringifies
   public String toString();
 
@@ -19,26 +18,28 @@ public interface Deque<Card>
   //front of this deque
   public boolean offerFirst(Card c);
 
-  //public Card pollFirst();
+  public Card pollFirst();
 
-  //public Card peekFirst();
+  public Card peekFirst();
 
-  //public boolean offerlLast(Card c);
+  public boolean offerLast(Card c);
 
-  //public Card pollLast();
+  public Card pollLast();
 
-  //public Card peekLast();
+  public Card peekLast();
 
-  //public void addFirst(Card c);
+  public void addFirst(Card c);
 
-  //public Card removeFirst();
+  public Card removeFirst();
 
-  //public Card getFirst();
+  public Card getFirst();
 
-  //public void addLast(Card c);
+  public void addLast(Card c);
 
-  //public Card removeLast();
+  public Card removeLast();
 
-  //public Card getLast();
+  public Card getLast();
+
+
 
 }
