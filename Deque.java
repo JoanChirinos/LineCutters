@@ -17,7 +17,7 @@ public interface Deque<Card>
 
   //Inserts the specified element at the
   //front of this deque
-  //public boolean offerFirst(Card c);
+  public boolean offerFirst(Card c);
 
   //public Card pollFirst();
 
