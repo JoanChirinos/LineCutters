@@ -1,41 +1,44 @@
 /*
-  Team LineCutters - Joan Chirinos, Mohtasim Howlander, Kashf Mashrafi
-  APCS2 pd08
-  L02 -- All Hands on Deque
+Team LineCutters - Joan Chirinos, Mohtasim Howlander, Kashf Mashrafi
+APCS2 pd08
+L02 -- All Hands on Deque
 */
 
 public interface Deque<Card>
 {
-    //Returns the number of elements in this deque
-    public int size();
+  //stringifies
+  public String toString();
 
-    //Returns true if this collection contains no elements
-    public boolean isEmpty();
+  //Returns the number of elements in this deque
+  public int size();
 
-    //Inserts the specified element at the
-    //front of this deque
-    //public boolean offerFirst(Card c);
+  //Returns true if this collection contains no elements
+  public boolean isEmpty();
 
-    //public Card pollFirst();
+  //Inserts the specified element at the
+  //front of this deque
+  //public boolean offerFirst(Card c);
 
-    //public Card peekFirst();
+  //public Card pollFirst();
 
-    //public boolean offerlLast(Card c);
+  //public Card peekFirst();
 
-    //public Card pollLast();
+  //public boolean offerlLast(Card c);
 
-    //public Card peekLast();
+  //public Card pollLast();
 
-    //public void addFirst(Card c);
+  //public Card peekLast();
 
-    //public Card removeFirst();
+  //public void addFirst(Card c);
 
-    //public Card getFirst();
+  //public Card removeFirst();
 
-    //public void addLast(Card c);
+  //public Card getFirst();
 
-    //public Card removeLast();
+  //public void addLast(Card c);
 
-    //public Card getLast();
+  //public Card removeLast();
+
+  //public Card getLast();
 
 }
