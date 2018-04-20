@@ -4,6 +4,9 @@
   L02 -- All Hands on Deque
 */
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class QQKachoo<D> implements Deque<D> {
 
   private int _size;
@@ -88,7 +91,7 @@ public class QQKachoo<D> implements Deque<D> {
     this.offerFirst(c);
   }
 
-  public Card removeFirst() {
+  public D removeFirst() {
     D tmp = this.pollFirst();
     if (tmp == null) {
       throw new NoSuchElementException();
@@ -96,7 +99,7 @@ public class QQKachoo<D> implements Deque<D> {
     return tmp;
   }
 
-  public Card getFirst() {
+  public D getFirst() {
     D tmp = this.peekFirst();
     if (tmp == null) {
       throw new NoSuchElementException();
@@ -108,7 +111,7 @@ public class QQKachoo<D> implements Deque<D> {
     this.offerLast(c);
   }
 
-  public Card removeLast() {
+  public D removeLast() {
     D tmp = this.pollLast();
     if (tmp == null) {
       throw new NoSuchElementException();
@@ -116,7 +119,7 @@ public class QQKachoo<D> implements Deque<D> {
     return tmp;
   }
 
-  public Card getLast() {
+  public D getLast() {
     D tmp = this.peekLast();
     if (tmp == null) {
       throw new NoSuchElementException();
@@ -124,9 +127,46 @@ public class QQKachoo<D> implements Deque<D> {
     return tmp;
   }
 
-  private class DequeIter<D> implements Iterator<D>  {
+  public Iterator<D> iterator() {
+    return (Iterator<D>)(new DequeIter());
+  }
 
-    private DLLNode<E> _dummy;
+  public boolean contains(D d) {
+    for (D el : this) {
+      if (el.equals(d)) return true;
+    }
+    return false;
+  }
+
+  public boolean removeFirstOccurrence(D toRemove) {
+    Iterator<D> it = iterator();
+    while (it.hasNext()) {
+      if (it.next().equals(toRemove)) {
+        it.remove();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public Iterator<D> descendingIterator() {
+    return (Iterator<D>)(new ReverseDequeIter());
+  }
+
+  public boolean removeLastOccurrence(D toRemove) {
+    Iterator<D> it = descendingIterator();
+    while (it.hasNext()) {
+      if (it.next().equals(toRemove)) {
+        it.remove();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private class DequeIter implements Iterator<D> {
+
+    private DLLNode<D> _dummy;
     private boolean _okToRemove;
 
     public DequeIter() {
@@ -139,8 +179,8 @@ public class QQKachoo<D> implements Deque<D> {
     }
 
     public D next() {
-      _dummy = _dummy.getPrev()
-      if (!this.hasNext()) {
+      _dummy = _dummy.getPrev();
+      if (_dummy == null) {
         throw new NoSuchElementException();
       }
       _okToRemove = true;
@@ -148,10 +188,77 @@ public class QQKachoo<D> implements Deque<D> {
     }
 
     public void remove() {
-      
+      if (!_okToRemove) {
+        throw new IllegalStateException();
+      }
+      _okToRemove = false;
+      if (_front == _back) {
+        _front = _back = null;
+      }
+      else if (_front == _dummy) {
+        _front = _front.getPrev();
+        _front.setNext(null);
+      }
+      else if (_back == _dummy) {
+        _back = _back.getNext();
+        _back.setPrev(null);
+      }
+      else {
+        _dummy.getPrev().setNext(_dummy.getNext());
+        _dummy.getNext().setPrev(_dummy.getPrev());
+      }
+      _size--;
     }
 
-  }
+  }//end class DequeIter
+
+  private class ReverseDequeIter implements Iterator<D> {
+
+    private DLLNode<D> _dummy;
+    private boolean _okToRemove;
+
+    public ReverseDequeIter() {
+      _dummy = new DLLNode<D>(null, null, _back);
+      _okToRemove = false;
+    }
+
+    public boolean hasNext() {
+      return _dummy.getNext() != null;
+    }
+
+    public D next() {
+      _dummy = _dummy.getNext();
+      if (_dummy == null) {
+        throw new NoSuchElementException();
+      }
+      _okToRemove = true;
+      return _dummy.getCargo();
+    }
+
+    public void remove() {
+      if (!_okToRemove) {
+        throw new IllegalStateException();
+      }
+      _okToRemove = false;
+      if (_front == _back) {
+        _front = _back = null;
+      }
+      else if (_front == _dummy) {
+        _front = _front.getPrev();
+        _front.setNext(null);
+      }
+      else if (_back == _dummy) {
+        _back = _back.getNext();
+        _back.setPrev(null);
+      }
+      else {
+        _dummy.getPrev().setNext(_dummy.getNext());
+        _dummy.getNext().setPrev(_dummy.getPrev());
+      }
+      _size--;
+    }
+
+  }//end class DequeIter
 
   public static void main(String[] args) {
     QQKachoo<String> xd = new QQKachoo<String>();
@@ -177,5 +284,43 @@ public class QQKachoo<D> implements Deque<D> {
     System.out.println("\nLast element: " + xd.peekLast());
     System.out.println("Popping last element: " + xd.pollLast());
     System.out.println("xd: " + xd);
+
+    System.out.println("\nIterating:");
+    for (String n : xd) {
+      System.out.println("\t" + n);
+    }
+
+    System.out.println("\nxd contains \"!\": " + xd.contains("!"));
+    System.out.println("xd contains \"name\" :" + xd.contains("name"));
+
+    System.out.println("\nxd: " + xd);
+    System.out.println("using iterator to remove all els from xd:");
+    Iterator<String> it = xd.iterator();
+    while (it.hasNext()) {
+      System.out.println("\tremoving " + it.next());
+      it.remove();
+    }
+    System.out.println("xd : " + xd);
+
+    System.out.println("\nadding some els to xd");
+    xd.offerLast("hello");
+    xd.offerLast("bro");
+    xd.offerLast("my");
+    xd.offerLast("bro");
+    xd.offerLast("is");
+    xd.offerLast("named");
+    xd.offerLast("bro");
+    xd.offerLast("okay");
+    System.out.println("xd: " + xd);
+
+    System.out.println("\nremoving first occurrence of \"bro\":");
+    xd.removeFirstOccurrence("bro");
+    System.out.println("xd: " + xd);
+
+    System.out.println("\nremoving last occurrence of \"bro\":");
+    xd.removeLastOccurrence("bro");
+    System.out.println("xd: " + xd);
+
+
   }
 }

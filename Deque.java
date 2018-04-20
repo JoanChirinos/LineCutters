@@ -4,7 +4,9 @@ APCS2 pd08
 L02 -- All Hands on Deque
 */
 
-public interface Deque<Card> implements Iterable<Card> {
+import java.util.Iterator;
+
+public interface Deque<Card> extends Iterable<Card> {
   //stringifies
   public String toString();
 
@@ -40,6 +42,12 @@ public interface Deque<Card> implements Iterable<Card> {
 
   public Card getLast();
 
+  public Iterator<Card> iterator();
 
+  public boolean contains(Card c);
+
+  public boolean removeFirstOccurrence(Card c);
+
+  //public boolean removeLastOccurrence(Card c);
 
 }
