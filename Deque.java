@@ -48,6 +48,11 @@ public interface Deque<Card> extends Iterable<Card> {
 
   public boolean removeFirstOccurrence(Card c);
 
-  //public boolean removeLastOccurrence(Card c);
+  public Iterator<Card> descendingIterator();
+
+  public boolean removeLastOccurrence(Card c);
+
+  //there are methods that basically just call other methods
+  //but we chose not to include them
 
 }
