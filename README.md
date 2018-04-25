@@ -1,5 +1,5 @@
 # LineCutters
-###### Joan Chirinos, Mohtasim Howlander, Kashf Mashrafi
+###### Joan Chirinos, Mohtasim Howlader, Kashf Mashrafi
 
 ## Deque methods to implement, in order of priority
 1. size()
