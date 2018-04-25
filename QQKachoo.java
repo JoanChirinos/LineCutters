@@ -102,7 +102,7 @@ public class QQKachoo<D> implements Deque<D> {
     this.offerFirst(c);
   }
 
-  //wrapper for removeFirst but with exception thrown rather than null
+  //wrapper for removeFirst but throws exception rather than null
   public D removeFirst() {
     D tmp = this.pollFirst();
     if (tmp == null) {
@@ -111,7 +111,7 @@ public class QQKachoo<D> implements Deque<D> {
     return tmp;
   }
 
-  
+  //wrapper for peekFirst but throws exception rather than null
   public D getFirst() {
     D tmp = this.peekFirst();
     if (tmp == null) {
@@ -120,10 +120,12 @@ public class QQKachoo<D> implements Deque<D> {
     return tmp;
   }
 
+  //wrapper for offerLast
   public void addLast(D c) {
     this.offerLast(c);
   }
 
+  //wrapper for pollLast but throws exception rather than null
   public D removeLast() {
     D tmp = this.pollLast();
     if (tmp == null) {
@@ -132,6 +134,7 @@ public class QQKachoo<D> implements Deque<D> {
     return tmp;
   }
 
+  //wrapper for peekLast but throws exception rather than null
   public D getLast() {
     D tmp = this.peekLast();
     if (tmp == null) {
@@ -140,10 +143,12 @@ public class QQKachoo<D> implements Deque<D> {
     return tmp;
   }
 
+  //returns a new Iterator as implemented in class DequeIter
   public Iterator<D> iterator() {
     return (Iterator<D>)(new DequeIter());
   }
 
+  //uses iterator to verify if this contains d
   public boolean contains(D d) {
     for (D el : this) {
       if (el.equals(d)) return true;
@@ -151,6 +156,7 @@ public class QQKachoo<D> implements Deque<D> {
     return false;
   }
 
+  //removes first occurrence of toRemove from this
   public boolean removeFirstOccurrence(D toRemove) {
     Iterator<D> it = iterator();
     while (it.hasNext()) {
@@ -162,10 +168,12 @@ public class QQKachoo<D> implements Deque<D> {
     return false;
   }
 
+  //returns a new Iterator as implemented in class ReverseDequeIter
   public Iterator<D> descendingIterator() {
     return (Iterator<D>)(new ReverseDequeIter());
   }
 
+  //removes last occurrence of toRemove from this
   public boolean removeLastOccurrence(D toRemove) {
     Iterator<D> it = descendingIterator();
     while (it.hasNext()) {
@@ -177,6 +185,7 @@ public class QQKachoo<D> implements Deque<D> {
     return false;
   }
 
+  //implementation of Iterator iterating from _front to _back
   private class DequeIter implements Iterator<D> {
 
     private DLLNode<D> _dummy;
@@ -225,6 +234,7 @@ public class QQKachoo<D> implements Deque<D> {
 
   }//end class DequeIter
 
+  //implementation of Iterator iterating from _back to _front
   private class ReverseDequeIter implements Iterator<D> {
 
     private DLLNode<D> _dummy;
