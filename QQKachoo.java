@@ -9,10 +9,10 @@ import java.util.NoSuchElementException;
 
 public class QQKachoo<D> implements Deque<D> {
 
-  private int _size;
-  private DLLNode<D> _front, _back;
+  private int _size; //stores size of this
+  private DLLNode<D> _front, _back; //pointers for either side of this
 
-  //constructor
+  //constructor: _front and _back point to null and size is 0
   public QQKachoo() {
     _size = 0;
     _front = _back = null;
@@ -20,82 +20,120 @@ public class QQKachoo<D> implements Deque<D> {
 
   //turns QQKachoo to String of format "FRONT: el1 | el2... | eln| : BACK"
   public String toString() {
+
     String ret = "FRONT: ";
+
     DLLNode<D> ptr = _front;
     for (int i = 0; i < this.size(); i++) {
       ret += ptr.toString() + " | ";
       ptr = ptr.getPrev();
     }
-    return ret + ": BACK";
+
+    return ret + ": BACK"; //returns String representation of this
+
   }
 
   //returns _size
   public int size() {
-    return _size;
+    return _size; //literally what it sounds like
   }
 
   //returns true if size == 0
   public boolean isEmpty() {
-    return this.size() == 0;
+    return this.size() == 0; //literally what it sounds like
   }
 
   //adds newEl to front of QQKachoo
   public boolean offerFirst(D newEl) {
+
     if (this.isEmpty()) {
       _front = _back = new DLLNode<D>(newEl, null, null); //if first el being added, points to null
     }
+
     else {
       _front.setNext(new DLLNode<D>(newEl, _front, null)); //if not first el, points back to front and forward to null
       _front = _front.getNext();
     }
+
     _size++; //increments size
+
     return true;
+
   }
 
   //returns and removes first element
   public D pollFirst() {
-    if (this.isEmpty()) return null;
+
+    if (this.isEmpty()) return null; //literally what it sounds like
+
+    //otherwise remove and store the element at the front
     D tmp = _front.getCargo();
     _front.getPrev().setNext(null);
     _front = _front.getPrev();
+
     _size--; //decrements size
+
+    //return previously stored el
     return tmp;
   }
 
-  //returns first el sans removing
+  //returns first el, sans removing
   public D peekFirst() {
-    if (this.isEmpty()) return null;
-    return _front.getCargo();
+
+    if (this.isEmpty()) return null; //literally what it sounds like
+
+    return _front.getCargo(); //return the element at the front
+
   }
 
   //adds newEl to back of QQKachoo
   public boolean offerLast(D newEl) {
+
     if (this.isEmpty()) {
       _front = _back = new DLLNode<D>(newEl, null, null); //if first el being added, points to null
     }
+
     else {
       _back.setPrev(new DLLNode<D>(newEl, null, _back));//if not first el, points back to null and forward to back
       _back = _back.getPrev();
     }
+
     _size++; //increments size
+
     return true;
+
   }
 
   //returns and removes last el
   public D pollLast() {
-    if (this.isEmpty()) return null;
+
+    if (this.isEmpty()) return null; //literally what it sounds like
+
+    //otherwise remove and store the element at the back
     D tmp = _back.getCargo();
     _back.getNext().setPrev(null);
     _back = _back.getNext();
+
     _size--; //decrements size
+
+    //return previously stored el
     return tmp;
+
   }
 
-  //returns last el sans removing
+  //returns last el, sans removing
   public D peekLast() {
-    if (this.isEmpty()) return null;
-    return _back.getCargo();
+
+    if (this.isEmpty()) return null; //literally what it sounds like it
+
+    return _back.getCargo(); //return the element at the back
+
   }
+
+  /***
+  * We chose to implement these wrapper methods in case the user wants an
+  * exception to be thrown rather than null being returned
+  ***/
 
   //wrapper for offerFirst
   public void addFirst(D c) {
