@@ -12,11 +12,13 @@ public class QQKachoo<D> implements Deque<D> {
   private int _size;
   private DLLNode<D> _front, _back;
 
+  //constructor
   public QQKachoo() {
     _size = 0;
     _front = _back = null;
   }
 
+  //turns QQKachoo to String of format "FRONT: el1 | el2... | eln| : BACK"
   public String toString() {
     String ret = "FRONT: ";
     DLLNode<D> ptr = _front;
@@ -27,70 +29,80 @@ public class QQKachoo<D> implements Deque<D> {
     return ret + ": BACK";
   }
 
+  //returns _size
   public int size() {
     return _size;
   }
 
+  //returns true if size == 0
   public boolean isEmpty() {
     return this.size() == 0;
   }
 
+  //adds newEl to front of QQKachoo
   public boolean offerFirst(D newEl) {
     if (this.isEmpty()) {
-      _front = _back = new DLLNode<D>(newEl, null, null);
+      _front = _back = new DLLNode<D>(newEl, null, null); //if first el being added, points to null
     }
     else {
-      _front.setNext(new DLLNode<D>(newEl, _front, null));
+      _front.setNext(new DLLNode<D>(newEl, _front, null)); //if not first el, points back to front and forward to null
       _front = _front.getNext();
     }
-    _size++;
+    _size++; //increments size
     return true;
   }
 
+  //returns and removes first element
   public D pollFirst() {
     if (this.isEmpty()) return null;
     D tmp = _front.getCargo();
     _front.getPrev().setNext(null);
     _front = _front.getPrev();
-    _size--;
+    _size--; //decrements size
     return tmp;
   }
 
+  //returns first el sans removing
   public D peekFirst() {
     if (this.isEmpty()) return null;
     return _front.getCargo();
   }
 
+  //adds newEl to back of QQKachoo
   public boolean offerLast(D newEl) {
     if (this.isEmpty()) {
-      _front = _back = new DLLNode<D>(newEl, null, null);
+      _front = _back = new DLLNode<D>(newEl, null, null); //if first el being added, points to null
     }
     else {
-      _back.setPrev(new DLLNode<D>(newEl, null, _back));
+      _back.setPrev(new DLLNode<D>(newEl, null, _back));//if not first el, points back to null and forward to back
       _back = _back.getPrev();
     }
-    _size++;
+    _size++; //increments size
     return true;
   }
 
+  //returns and removes last el
   public D pollLast() {
     if (this.isEmpty()) return null;
     D tmp = _back.getCargo();
     _back.getNext().setPrev(null);
     _back = _back.getNext();
-    _size--;
+    _size--; //decrements size
     return tmp;
   }
 
+  //returns last el sans removing
   public D peekLast() {
     if (this.isEmpty()) return null;
     return _back.getCargo();
   }
 
+  //wrapper for offerFirst
   public void addFirst(D c) {
     this.offerFirst(c);
   }
 
+  //wrapper for removeFirst but with exception thrown rather than null
   public D removeFirst() {
     D tmp = this.pollFirst();
     if (tmp == null) {
@@ -99,6 +111,7 @@ public class QQKachoo<D> implements Deque<D> {
     return tmp;
   }
 
+  
   public D getFirst() {
     D tmp = this.peekFirst();
     if (tmp == null) {
