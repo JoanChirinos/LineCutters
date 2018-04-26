@@ -3,10 +3,31 @@
 
 ## Deque methods to implement, in order of priority
 1. size()
+  * Returns the an int which represents the size of the deque. Size should be 0 at initialization, increase by 1 in each add method, and decrease by 1 in each remove method.
 2. isEmpty()
+  * Returns boolean on whether or not the deque is empty. 
+  
 3. Java 8 API "Special value" methods
-4. Java 8 API "Throws exception" Methods
+* offerFirst(D newEl) -  adds an element to the front of the Deque
+* pollFirst() - returns and remove the first element
+* peekFirst() - returns the first element
+* offerLast(D newEl) - adds en element to the back of the Deque
+* pollLast() - returns and removes the last element
+* peekLast() - return the last element
+
+4. Java 8 API "Throws exception" Methods (Same as Special Value methods but throws exceptions rather than returning null)
+* addFirst(D c)
+* removeFirst(D c)
+* getFirst(D c)
+* addLast(D c)
+* removeLast(D c)
+* getLast(D c)
+
 5. Other methods
+* iterator() - necesary for Iterable implementation
+* contains(D c) - uses iterator to check whether Deque has element c
+* removeFirstOccurrence(D toRemove) - removes first occurrence of toRemove
+* descendingIterator() - returns new iterator that iterates in the opposite direction
 
 ## Development Plan
 1. Create a Deque interface with methods in order of priority
